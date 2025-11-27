@@ -262,7 +262,7 @@ function Env(name) {
 
     this.notify = function (title, subtitle, message) {
         console.log(`[Notification] ${title}\n${subtitle}\n${message}`);
-        $notification.post(title, subtitle, message);
+        $notify(title, subtitle, message);
     };
 
     this.http = {
