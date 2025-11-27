@@ -214,7 +214,7 @@ async function deleteEnv(config, token, envId) {
     const url = `${config.qlUrl}/open/envs`;
 
     try {
-        const requestBody = [envId];//[Number(envId)];
+        const requestBody = [String(envId)];
         $.log(`🔍 删除请求: ${JSON.stringify(requestBody)}`);
 
         const response = await httpRequest({
@@ -351,7 +351,7 @@ async function syncToQinglong(cookie, ptPin) {
             // 删除所有旧的
             for (const env of existingEnvs) {
                 $.log(`🔍 删除环境变量: ID=${env._id || env.id}`);
-                const deleteResult = await deleteEnv(config, token, env);
+                const deleteResult = await deleteEnv(config, token, env._id || env.id);
                 if (deleteResult.success) {
                     $.log(`✅ 已删除旧的环境变量`);
                 } else {
