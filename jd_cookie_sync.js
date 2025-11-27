@@ -169,7 +169,8 @@ async function getEnvList(config, token) {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
-            }
+            },
+            _respType: "all"
         });
 
         const body = JSON.parse(response.body);
@@ -223,7 +224,8 @@ async function deleteEnv(config, token, envId) {
                 'Content-Type': 'application/json',
                 'X-HTTP-Method-Override': 'DELETE'
             },
-            body: JSON.stringify(requestBody)
+            body: JSON.stringify(requestBody),
+            _respType: "all"
         });
 
         const body = JSON.parse(response.body);
@@ -263,7 +265,8 @@ async function addEnv(config, token, name, value, remarks) {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
+            _respType: "all"
         });
 
         const body = JSON.parse(response.body);
