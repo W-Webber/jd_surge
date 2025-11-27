@@ -122,7 +122,7 @@ function updateCache(ptPin, cookie) {
     const lastUpdateKey = `jd_cookie_last_update_${ptPin}`;
 
     $.setval(cookie, cacheKey);
-    $.setval((String(Date.now()), lastUpdateKey);
+    $.setval(String(Date.now()), lastUpdateKey);
 }
 
 // ============= 青龙 API 调用 =============
@@ -372,7 +372,7 @@ async function syncToQinglong(cookie, ptPin) {
         // 清除绕过标志（如果存在）
         const bypassCheck = $.getval('jd_bypass_interval_check');
         if (bypassCheck === 'true') {
-            $.setval(('false', 'jd_bypass_interval_check');
+            $.setval('false', 'jd_bypass_interval_check');
             $.log(`✅ 已清除缓存绕过标志，恢复正常时间间隔检查`);
         }
 
