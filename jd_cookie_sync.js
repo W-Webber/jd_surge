@@ -138,7 +138,8 @@ async function getQinglongToken(config) {
             url: url,
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            _respType: "all"
         });
 
         const body = JSON.parse(response.body);
