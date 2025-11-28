@@ -68,7 +68,8 @@ surge:///write-persistent-store?key=ql_client_secret&value=YOUR_SECRET
             url: url,
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            _respType: 'all'
         });
 
         const body = JSON.parse(response.body);
@@ -185,7 +186,8 @@ async function testConfig() {
             url: url,
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            _respType: 'all'
         });
 
         const body = JSON.parse(response.body);
@@ -229,65 +231,36 @@ function clearCookieCache() {
 // ============= 主菜单 =============
 
 (async () => {
-    // 根据 URL 参数决定执行的操作
-    const action = $argument || 'smart-check';
-
-    switch (action) {
-        case 'smart-check':
-            await smartConfigCheck();
-            break;
-        case 'clear':
-            clearConfig();
-            break;
-        case 'clear-cache':
-            clearCookieCache();
-            break;
-        // 保留旧的操作以兼容
-        case 'show':
-        case 'wizard':
-        case 'test':
-            await smartConfigCheck();
-            break;
-        default:
-            $.msg('JD Cookie Sync', '未知操作', `不支持的操作: ${action}\n\n支持的操作: smart-check, clear, clear-cache`);
+    try {
+        // 根据 URL 参数决定执行的操作
+        const action = (typeof $argument !== "undefined" && $argument) || 'smart-check';
+        switch (action) {
+            case 'smart-check':
+                await smartConfigCheck();
+                break;
+            case 'clear':
+                clearConfig();
+                break;
+            case 'clear-cache':
+                clearCookieCache();
+                break;
+            // 保留旧的操作以兼容
+            case 'show':
+            case 'wizard':
+            case 'test':
+                await smartConfigCheck();
+                break;
+            default:
+                $.msg('JD Cookie Sync', '未知操作', `不支持的操作: ${action}\n\n支持的操作: smart-check, clear, clear-cache`);
+        }
+    } catch (error) {
+        console.log('远程脚本执行失败');
+        $.msg('JD Cookie Sync', '❌ 配置错误', `错误信息: ${error.message || error}`);
+    } finally {
+        console.log('远程脚本执行结束');
+        $.done();
     }
-
-    $.done({});
 })();
-
-// ============= Surge 环境适配 =============
-
-// function Env(name) {
-//     this.name = name;
-//     this.logs = [];
-
-//     this.log = function (message) {
-//         console.log(`[${this.name}] ${message}`);
-//         this.logs.push(message);
-//     };
-
-//     this.notify = function (title, subtitle, message) {
-//         console.log(`[Notification] ${title}\n${subtitle}\n${message}`);
-//         $notify(title, subtitle, message);
-//     };
-
-//     this.http = {
-//         get: function (options) {
-//             return new Promise((resolve, reject) => {
-//                 $httpClient.get(options, (error, response, body) => {
-//                     if (error) {
-//                         reject(error);
-//                     } else {
-//                         response.body = body;
-//                         resolve(response);
-//                     }
-//                 });
-//             });
-//         }
-//     };
-
-//     return this;
-// }
 
 //  二次封装
 async function httpRequest(options) {
