@@ -214,7 +214,7 @@ async function deleteEnv(config, token, envId) {
     const url = `${config.qlUrl}/open/envs`;
 
     try {
-        const requestBody = [new String(envId)];
+        const requestBody = [String(envId)];
         $.log(`🔍 删除请求: ${JSON.stringify(requestBody)}`);
 
         const response = await httpRequest({
@@ -224,6 +224,7 @@ async function deleteEnv(config, token, envId) {
                 'Content-Type': 'application/json',
                 'X-HTTP-Method-Override': 'DELETE'
             },
+            method: "DELETE",
             body: JSON.stringify(requestBody),
             _respType: "all"
         });
