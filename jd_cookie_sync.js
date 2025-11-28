@@ -415,52 +415,6 @@ async function syncToQinglong(cookie, ptPin) {
     }
 })();
 
-// ============= Surge 环境适配 =============
-
-// function Env(name) {
-//     this.name = name;
-//     this.logs = [];
-
-//     this.log = function (message) {
-//         console.log(`[${this.name}] ${message}`);
-//         this.logs.push(message);
-//     };
-
-//     this.notify = function (title, subtitle, message) {
-//         console.log(`[Notification] ${title}\n${subtitle}\n${message}`);
-//         $notify(title, subtitle, message);
-//     };
-
-//     this.http = {
-//         get: function (options) {
-//             return new Promise((resolve, reject) => {
-//                 $httpClient.get(options, (error, response, body) => {
-//                     if (error) {
-//                         reject(error);
-//                     } else {
-//                         response.body = body;
-//                         resolve(response);
-//                     }
-//                 });
-//             });
-//         },
-//         post: function (options) {
-//             return new Promise((resolve, reject) => {
-//                 $.post(options, (error, response, body) => {
-//                     if (error) {
-//                         reject(error);
-//                     } else {
-//                         response.body = body;
-//                         resolve(response);
-//                     }
-//                 });
-//             });
-//         }
-//     };
-
-//     return this;
-// }
-
 //  二次封装
 async function httpRequest(options) {
     try {
