@@ -224,9 +224,9 @@ async function deleteEnv(config, token, envId) {
                 'Content-Type': 'application/json',
                 'X-HTTP-Method-Override': 'DELETE'
             },
-            method: "DELETE",
             body: JSON.stringify(requestBody),
-            _respType: "all"
+            _respType: "all",
+            ...($.isQuanX() ? { method: "DELETE" } : {})
         });
 
         const body = JSON.parse(response.body);
