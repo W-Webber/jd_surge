@@ -254,7 +254,7 @@ async function addEnv(config, token, name, value, remarks) {
     const data = [{
         name: name,
         value: value,
-        remarks: remarks || `Added by Surge at ${new Date().toLocaleString()}`
+        remarks: remarks || `Added by ${$.getEnv()} at ${new Date().toLocaleString()}`
     }];
 
     try {
@@ -398,7 +398,7 @@ async function syncToQinglong(cookie, ptPin) {
 
         if (!cookieResult.valid) {
             $.log(`⚠️ Cookie 提取失败: ${cookieResult.message}`);
-            $done({});
+            $.done({});
             return;
         }
 
@@ -411,7 +411,7 @@ async function syncToQinglong(cookie, ptPin) {
         $.log(`❌ 脚本执行异常: ${error.message || error}`);
         $.msg('JD Cookie Sync', '脚本执行异常', String(error));
     } finally {
-        $done({});
+        $.done({});
     }
 })();
 
